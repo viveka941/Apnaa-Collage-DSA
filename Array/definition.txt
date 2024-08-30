@@ -1,1 +1,6 @@
 List of element of the same types palced in a contiguous memory location 
+
+
+Passing arrays as arguement ->
+pass by vales
+by eferences 
