@@ -1,0 +1,14 @@
+
+Array =>
+        fixed size 
+        primitive data types can be stord
+
+ArrayList=> dynamic size
+            primitive data types con't stored directly
+          
+Operation 
+       Add element 0(1)
+       Get Eelemnt 0(1)
+       Remove element 0(n)
+       set element at index 0(n)
+       contain element 0(n)
