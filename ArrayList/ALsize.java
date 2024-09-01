@@ -15,5 +15,10 @@ public class ALsize {
       System.out.print(i+" ");
 
      }
+// System.out.println();
+
+     for(int i=list.size()-1; i>=0; i--){
+      System.out.print(list.get(i)+" ");
+     }
    }
 }
