@@ -12,7 +12,7 @@ public class LinkedList {
   public static Node head;
   public static Node tail;
 
-  public static void addFirst(int data) { // 0(1)
+  public  void addFirst(int data) { // 0(1)
     // create new Node
     Node newNode = new Node(data);
     if (head == null) {
@@ -26,7 +26,7 @@ public class LinkedList {
     head = newNode;
   }
 
-  public static void addLast(int data) {
+  public  void addLast(int data) {
     Node newNode = new Node(data);
     if (head == null) {
       head = tail = newNode;
@@ -36,7 +36,7 @@ public class LinkedList {
     tail = newNode;
   }
 
-  public static void display() { //0(n)
+  public  void display() { //0(n)
     if (head == null) {
       System.out.println("Linked List is empty");
       return;
@@ -49,21 +49,38 @@ public class LinkedList {
     System.out.println("null");
   }
 
+  public static void addIndex(int idx, int data){
+    Node newNode = new Node(data);
+    Node temp=head;
+    int i=0;
+    while (i<idx-1 ) {
+      temp = temp.next;
+      i++;
+    }
+    //i = idex-1; temp ->prev
+    newNode.next= temp.next;
+    temp.next= newNode;
+  }
+
   public static void main(String[] args) {
     LinkedList ll = new LinkedList();
     ll.display();
     ll.addFirst(2);
-    ll.display();
+    
     ll.addFirst(1);
-    ll.display();
     ll.addLast(3);
     ll.addLast(4);
 
     ll.display();
     System.out.println();
     ll.addLast(45);
-
     ll.display();
+
+    // add new node n index
+
+    addIndex(3, 56);
+    ll.display();
+
 
   }
 }
