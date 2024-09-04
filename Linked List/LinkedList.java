@@ -159,36 +159,89 @@ public class LinkedList {
     prev.next = prev.next.next;
     return;
   }
+
+// slow fast approach
+ public static Node FindMid(Node head) {
+  Node fast = head;
+  Node slow = head;
+  while (fast != null && fast.next != null) {
+    slow = slow.next; // Move slow pointer by 1
+    fast = fast.next.next; // Move fast pointer by 2
+  }
+  return slow; // slow is now at the midpoint
+}
+
+public static boolean checkPalindrome() {
+  if (head == null || head.next == null) {
+    return true; // Empty or single node list is a palindrome
+  }
+
+  // Step 1: Find the mid-node
+  Node midNode = FindMid(head);
+
+  // Step 2: Reverse the second half
+  Node prev = null;
+  Node curr = midNode;
+  Node next;
+  while (curr != null) {
+    next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+
+  // Now, prev is the head of the reversed second half
+  Node right = prev; // Start of the reversed second half
+  Node left = head; // Start of the first half
+
+  // Step 3: Compare the two halves
+  while (right != null) {
+    if (left.data != right.data) {
+      return false; // Mismatch found, not a palindrome
+    }
+    left = left.next;
+    right = right.next;
+  }
+  return true; // The linked list is a palindrome
+}
+
   public static void main(String[] args) {
     LinkedList ll = new LinkedList();
-    ll.display();
-    ll.addFirst(2);
+    // ll.display();
+    // ll.addFirst(2);
 
+    // ll.addFirst(1);
+    // ll.addLast(3);
+    // ll.addLast(4);
+
+    // ll.display();
+    // System.out.println();
+    // ll.addLast(45);
+    // ll.display();
+
+    // // add new node at index
+    // addIndex(3, 56);
+    // ll.display();
+    // System.out.println(ll.size); // O(1)
+
+    // // Remove First
+    // ll.removeFirst();
+    // ll.display();
+    // System.out.println();
+    // ll.removeLast();
+    // ll.display();
+
+    // System.out.println(itrSearch(56));
+    // ll.reverse();
+    // ll.display();
+    // ll.deleteNthFromEnd(3);
+    // ll.display();
     ll.addFirst(1);
-    ll.addLast(3);
-    ll.addLast(4);
-
+    ll.addFirst(2);
+    ll.addFirst(2);
+    ll.addFirst(2);
+    
     ll.display();
-    System.out.println();
-    ll.addLast(45);
-    ll.display();
-
-    // add new node at index
-    addIndex(3, 56);
-    ll.display();
-    System.out.println(ll.size); // O(1)
-
-    // Remove First
-    ll.removeFirst();
-    ll.display();
-    System.out.println();
-    ll.removeLast();
-    ll.display();
-
-    System.out.println(itrSearch(56));
-    ll.reverse();
-    ll.display();
-    ll.deleteNthFromEnd(3);
-    ll.display();
+   System.out.println(ll.checkPalindrome());
   }
 }
