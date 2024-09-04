@@ -112,7 +112,7 @@ public class LinkedList {
     return val;
   }
 
-  public static int itrSearch(int key) {
+  public static int itrSearch(int key) {//0(n)
     Node temp = head;
     int i = 0;
     while (temp != null) {
@@ -125,6 +125,18 @@ public class LinkedList {
     return -1;
   }
 
+  public void reverse(){
+    Node prev = null;
+    Node curr = tail= head;
+    Node next;
+    while(curr!=null){
+      next=curr.next;
+      curr.next=prev;
+      prev=curr;
+      curr=next;
+    }
+    head=prev;
+  }
   public static void main(String[] args) {
     LinkedList ll = new LinkedList();
     ll.display();
@@ -152,5 +164,7 @@ public class LinkedList {
     ll.display();
 
     System.out.println(itrSearch(56));
+    ll.reverse();
+    ll.display();
   }
 }
