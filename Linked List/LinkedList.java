@@ -112,7 +112,7 @@ public class LinkedList {
     return val;
   }
 
-  public static int itrSearch(int key) {//0(n)
+  public static int itrSearch(int key) {// 0(n)
     Node temp = head;
     int i = 0;
     while (temp != null) {
@@ -125,88 +125,131 @@ public class LinkedList {
     return -1;
   }
 
-  public void reverse(){
+  public void reverse() {
     Node prev = null;
-    Node curr = tail= head;
+    Node curr = tail = head;
     Node next;
-    while(curr!=null){
-      next=curr.next;
-      curr.next=prev;
-      prev=curr;
-      curr=next;
+    while (curr != null) {
+      next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
     }
-    head=prev;
+    head = prev;
   }
 
-  public static void deleteNthFromEnd(int n){
-    int sz=0;
+  public static void deleteNthFromEnd(int n) {
+    int sz = 0;
     Node temp = head;
     while (temp != null) {
-      temp=temp.next;
+      temp = temp.next;
       sz++;
     }
-    if(n==sz){
-      head=head.next;// first
+    if (n == sz) {
+      head = head.next;// first
       return;
     }
-    int i =1;
-    int iToFind =sz-n;
+    int i = 1;
+    int iToFind = sz - n;
     Node prev = head;
-    while (i<iToFind) {
-      prev=prev.next;
+    while (i < iToFind) {
+      prev = prev.next;
       i++;
     }
     prev.next = prev.next.next;
     return;
   }
 
-// slow fast approach
- public static Node FindMid(Node head) {
-  Node fast = head;
-  Node slow = head;
-  while (fast != null && fast.next != null) {
-    slow = slow.next; // Move slow pointer by 1
-    fast = fast.next.next; // Move fast pointer by 2
-  }
-  return slow; // slow is now at the midpoint
-}
-
-public static boolean checkPalindrome() {
-  if (head == null || head.next == null) {
-    return true; // Empty or single node list is a palindrome
-  }
-
-  // Step 1: Find the mid-node
-  Node midNode = FindMid(head);
-
-  // Step 2: Reverse the second half
-  Node prev = null;
-  Node curr = midNode;
-  Node next;
-  while (curr != null) {
-    next = curr.next;
-    curr.next = prev;
-    prev = curr;
-    curr = next;
-  }
-
-  // Now, prev is the head of the reversed second half
-  Node right = prev; // Start of the reversed second half
-  Node left = head; // Start of the first half
-
-  // Step 3: Compare the two halves
-  while (right != null) {
-    if (left.data != right.data) {
-      return false; // Mismatch found, not a palindrome
+  // slow fast approach
+  public static Node FindMid(Node head) {
+    Node fast = head;
+    Node slow = head;
+    while (fast != null && fast.next != null) {
+      slow = slow.next; // Move slow pointer by 1
+      fast = fast.next.next; // Move fast pointer by 2
     }
-    left = left.next;
-    right = right.next;
+    return slow; // slow is now at the midpoint
   }
-  return true; // The linked list is a palindrome
-}
+
+  public static boolean checkPalindrome() {
+    if (head == null || head.next == null) {
+      return true; // Empty or single node list is a palindrome
+    }
+
+    // Step 1: Find the mid-node
+    Node midNode = FindMid(head);
+
+    // Step 2: Reverse the second half
+    Node prev = null;
+    Node curr = midNode;
+    Node next;
+    while (curr != null) {
+      next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
+    }
+
+    // Now, prev is the head of the reversed second half
+    Node right = prev; // Start of the reversed second half
+    Node left = head; // Start of the first half
+
+    // Step 3: Compare the two halves
+    while (right != null) {
+      if (left.data != right.data) {
+        return false; // Mismatch found, not a palindrome
+      }
+      left = left.next;
+      right = right.next;
+    }
+    return true; // The linked list is a palindrome
+  }
+
+  public static boolean isCycle() { // fayod threw
+    Node slow = head;
+    Node fast = head;
+    while (fast != null && fast.next != null) {
+      slow = slow.next; // +1
+      fast = fast.next.next; // +2
+      if (fast == slow) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static void removeCycle() {
+    // dectec cycle
+    Node slow = head;
+    Node fast = head;
+    boolean cycle = false;
+    while (fast != null && fast.next != null) {
+      if (fast == slow) {
+        cycle = true;
+        break;
+      }
+    }
+    if (cycle == false) {
+      return;
+    }
+    // find meeting point
+    slow = head;
+    Node prev = null;// last node
+    while (slow != fast) {
+      prev = fast;
+      slow = slow.next;
+      fast = fast.next;
+    }
+    while (fast.next != slow) {
+      fast = fast.next;
+    }
+    // remove cycle -> last.next = null
+    prev.next = null;
+
+  }
 
   public static void main(String[] args) {
-    LinkedList ll = new LinkedList();
+    // LinkedList ll = new LinkedList();
     // ll.display();
     // ll.addFirst(2);
 
@@ -236,12 +279,23 @@ public static boolean checkPalindrome() {
     // ll.display();
     // ll.deleteNthFromEnd(3);
     // ll.display();
-    ll.addFirst(1);
-    ll.addFirst(2);
-    ll.addFirst(2);
-    ll.addFirst(2);
-    
-    ll.display();
-   System.out.println(ll.checkPalindrome());
+    // ll.addFirst(1);
+    // ll.addFirst(2);
+    // ll.addFirst(2);
+    // ll.addFirst(2);
+
+    // ll.display();
+    // System.out.println(ll.checkPalindrome());
+
+    head = new Node(1);
+    Node temp = new Node(2);
+    head.next = temp;
+    head.next.next = new Node(3);
+    head.next.next.next = temp;
+    // 1->2->3->2
+    System.out.println(isCycle());
+    removeCycle();
+    System.out.println(isCycle());
+
   }
 }
